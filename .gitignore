@@ -31,4 +31,5 @@
 *.xdy
 *.tdo
 *.fls
+*.slo
 /.gitignore
