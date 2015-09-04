@@ -1,0 +1,83 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introduction}\label{int}
+%
+This chapter presents an overview of the purpose and focus of the study, its significance, and how it was conducted. Each of the following chapters is outlined at the end.
+%
+\section{Problem statement}
+%
+In the daily operation of an oil field many decisions have to be taken that affect the volume of fluids produced. A decision made by a production engineer or field operator takes into account the capacities of the surface facility in processing, storing, and exporting fluids, the pressures and fluid handling limits in subsea equipment, the restrictions coming from reservoir management, and all these are linked by production models that predict the production of the wells.
+%
+Many studies have been carried out to propose mathematical tools that help the decision-makers to select the best production plan. 
+%
+A particular type of oil field operation is required when a gas-lift system is used, and there are several works that deal with this problematic including \cite{Redden1974,Buitrago1996,Kosmidis2004,Campos2010,Gunnerud2010,Codas2012a,Silva2014,Lima2015}. 
+%
+Each of these studies suggests an approach to solve the daily production optimization problem considering an specific set of variables and constraints, among the many possible scenarios of optimization that arise when gas-lift is present.
+%
+Although those approaches can consider variation in equipment operating conditions (e.g. failures and valves alignments) they all considered only  nominal operating conditions of the wells which, despite being valid for a short time horizon, may vary significantly to the extent of compromising and even invalidating a nominal solution.
+%
+
+%
+Uncertainty in production optimization problems could be found in the definition of the system capacities as well as in the production models. In the latter, the lack of accuracy to predict the system production arise from measurement errors, unmodeled oscillating behavior, and system trends evolving dynamically in time, which hinders the sampling of informative data. All happening in a time scale that could affect a daily production optimization solution.
+%
+Few works have investigated manners of dealing with uncertainty in the scope of daily production optimization. The problem is in fact twofold: quantifying uncertain data \cite{Elgsaeter2008}, and handling the uncertainty in the optimization problems in order to provide a solution that is at least to some extent immune to data perturbation \cite{Nakashima2006,Bieker2007b,Elgsaeter2010}.
+%
+Besides the small number of studies on the latter issue, there is only one that to some extent considered uncertainty explicitly in the optimization problem \cite{Bieker2007b}, but only for few parameters.
+%
+
+%
+To this end, this work presents a formulation for production optimization which can account explicitly for uncertainty that are inherent to production wells.
+%
+\section{Objectives and contributions}
+%Statement of purpose:
+The research purpose is to develop production optimization models that can produce  practical and robust solutions when the operative scenario faces uncertainty in the parameters that characterize reservoirs, wells, or equipment.
+%
+
+%Overview of methodology:
+The proposed production optimization models are designed based on the theory developed for robust linear optimization \cite{Ben-Tal1999,Nemirovski2000,AharonBen-Tal2009,Bertismas2011}, extending and adapting it to the specific requirements of this application.
+%
+The robust production optimization models have their solutions compared to standard production optimization models, which are based on nominal (i.e. expected value) parameter values, in order to highlight the benefits and drawbacks of the optimal robust solutions and to demonstrate the impact of using standard optimal solutions in an uncertain scenario.
+%
+Experiments are performed by using synthetic but representative oil fields instantiated in a commercial simulator.
+%
+
+%Rationale and significance:
+The main contributions of this work can be synthesized as:
+%
+\begin{itemize}
+ \item The development of a robust optimization methodology that can be applied to several instances of gas-lift optimization problems;
+ \item An analysis of the performance of standard and robust production optimization to oil fields operating under uncertainty, using their optimal solutions in multiphase simulation softwares.
+\end{itemize}
+%
+
+%Researcher assumptions:
+One central assumption of this work is that each uncertain parameter can be modeled as a range of possible values, not requiring a complicated description. Intuitively this provides an easier approach for modeling uncertainty, however, even finding relevant bounds for the parameter values remains a practical and theoretical challenge.
+%
+\subsubsection{Organization of the dissertation}\label{intsub}
+%
+This dissertation is divided in six chapters and one appendix.
+\autoref{int} e \autoref{intsub}
+\citeauthoronline{Gunnerud2010},\citeauthoronline{Codas2012a}, \gls{MILP}, %\gls{pwf}
+% %
+% \autoref{chap:fundamentals} reviews fundamental topics that are important for understanding the developments described in the following chapters. It covers concepts of the oil and gas industry, with emphasis on gas-lift systems and daily production optimization, with a review of the main works in this area. It also presents a short overview on optimization modeling and optimization under uncertainty. Still in this chapter, the main results from the theory of robust linear optimization are described. The focus is on selected topics and on important remarks about the theory that are important for the robust production optimization models proposed in this work. 
+% %
+% 
+% %
+% \autoref{chap:problem} has a discussion on uncertainty in production systems, with a review of the few works that consider uncertainty in short-term production optimization. It also details some core results of this dissertation. A simplified gas-lift production system is used explain how to model an uncertain production optimization problem and from this uncertain model how to produce the proposed robust optimization model.
+% %
+% 
+% %
+% \autoref{chap:models} presents the results of the same methodology when applied to two production optimization problems with routing decisions, one for a group of satellite wells, and another to a group of wells with subsea manifolds. 
+% %
+% \autoref{chap:experiments} has experimental results comparing standard and robust solutions of one of the models developed in the previous.
+% %
+% 
+% %
+% A conclusion of the dissertation is presented in \autoref{chap:conclusion}, with comments on the results achieved and a perspective of further developments from this work.
+% %
+% 
+% %
+% Finally, \hyperref[chap:appendix-a]{Appendix A} presents a proposed algorithm for sampling the production curves that produces a piecewise-linear approximation curve with a given maximum error.
+% 

@@ -1,0 +1,126 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Universidade Federal de Santa Catarina (UFSC)            
+% Centro Tecnológico (CTC)
+% Departamento de Automação e Sistemas (DAS)
+% Grupo de Otimização e Sistemas (GOS)
+%----------------------------------------------------------------------
+% Dissertação de Mestrado/
+%----------------------------------------------------------------------                                                           
+% (c)2015 Eduardo Otte Hulse (eohulse@gmail.com)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Class ufscthesis options are:
+% english or brazil, which will define the main language of the document. Default value is "brazil".
+% softcopy or hardcopy, which will generate a different pdf printing. "softcopy" is print hyperlinks in color and also a cover for the document. "hardcopy" is the version to be printed to BU and is the default value. 
+% some packages are already preloaded into the class with required options. Thus, loading them in the preamble won't have any effect. Those packages are:
+% {mmap}, [utf8]{inputenc}, [T1]{fontenc}, [english,brazil]{babel}, [usenames,dvipsnames,svgnames,table]{xcolor}, {pdfpages}, [activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} with \microtypecontext{spacing=nonfrench}, [breaklinks=true]{hyperref}, [acronym,symbols,nomain,style=list]{glossaries}, {amstext}, [abnt-etal-cite=2]{abntex2cite}, {breakcites}. A few are not mentioned here.
+
+%----------------------------------------------------------------------
+% Carrega Classe ufscthesis
+\documentclass[brazil,hardcopy]{ufscthesis}
+
+%----------------------------------------------------------------------
+% Pacotes usados especificamente neste documento
+\usepackage{amsfonts, amsmath, amsthm, amsbsy,amssymb,bm,mathtools} % For math fonts, symbols and environments %
+\usepackage{graphicx} 		% Required for including images
+\usepackage{transparent}	% may be required for inkscape pdf figures (http://bit.ly/18i5Oga)
+\newsubfloat{figure}		% Allow subfloats in figure environment (http://bit.ly/1C20NAj)
+\graphicspath{{figures/}} 	% Location of the graphics files
+
+\usepackage{siunitx} % units package
+\let\DeclareUSUnit\DeclareSIUnit
+\let\US\SI
+\let\us\si
+\DeclareUSUnit\inch{in}
+\sisetup{detect-all}  %it may be necessary to load it after loading the font package
+
+%----------------------------------------------------------------------
+% Comandos criados pelo usuário
+\newcommand{\afazer}[1]{{\color{red}{#1}}} % Para destacar uma parte a ser trabalhada
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+
+
+%----------------------------------------------------------------------
+% Identificadores do trabalho
+% Usados para preencher os elementos pré-textuais
+\instituicao[a]{Universidade Federal de Santa Catarina} % Opcional
+\departamento[a]{Biblioteca Universitária}
+\programa[o]{Programa de ...} 
+\curso{Engenharia de ...}
+\documento[a]{Tese} % [o] para dissertação e trabalho de conclusão de curso [a] para tese
+\grau{...} % doutor, mestre, engenheiro, etc.
+\titulo{Título}
+\subtitulo{Subtítulo (se houver)} % Opcional
+\autor{Nome completo do autor}
+\local{Florianópolis} % Opcional (Florianópolis é o padrão)
+\data{29}{April}{2015}
+\orientador[Universidade ...]{Prof. ..., PhD}
+\coorientador[Universidade ...]{Prof. Dr. ...}
+\coordenador[Universidade ...]{Prof. Dr. ...}
+\orientadornabanca{sim} % Se faz parte da banca definir como sim
+\coorientadornabanca{nao} % Se faz parte da banca definir como sim
+\bancaMembroA{Primeiro membro\\Universidade ...}  %Nome do presidente da banca
+\bancaMembroB{Segundo membro\\Universidade ...}   % Nome do membro da Banca
+\bancaMembroC{Terceiro membro\\Universidade ... \\(Videoconferência)} % Nome do membro da Banca
+% \bancaMembroD{Quarto membro\\Universidade ... } % Nome do membro da Banca
+% \bancaMembroE{Quinto membro\\Universidade ...}  % Nome do membro da Banca
+% \bancaMembroF{Sexto membro\\Universidade ...}   % Nome do membro da Banca
+% \bancaMembroG{Sétimo membro\\Universidade ...}  % Nome do membro da Banca
+
+\dedicatoria{Este trabalho é dedicado aos meus colegas de classe e aos meus queridos pais.}
+
+\agradecimento{Inserir os agradecimentos aos colaboradores à execução do trabalho. Inserir os agradecimentos aos colaboradores à execução do trabalho.}
+
+\epigrafe{Texto da Epígrafe. Citação relativa ao tema do trabalho. É opcional. A epígrafe pode também aparecer na abertura de cada seção ou capítulo.}
+{(Autor da epígrafe, ano)}
+
+\textoresumo {O texto do resumo deve ser digitado, em um único bloco, sem espaço de parágrafo. O resumo deve ser significativo, composto de uma sequência de frases concisas, afirmativas e não de uma enumeração de tópicos. Não deve conter citações. Deve usar o verbo na voz passiva. Abaixo do resumo, deve-se informar as palavras-chave (palavras ou expressões significativas retiradas do texto) ou, termos retirados de thesaurus da área.}
+\palavraschave{Palavra-chave 1. Palavra-chave 2.  Palavra-chave 3. }
+
+\textabstract {Resumo traduzido para outros idiomas, neste caso, inglês. Segue o formato do resumo feito na língua vernácula. As palavras-chave traduzidas, versão em língua estrangeira, são colocadas abaixo do texto precedidas pela expressão ``Keywords'', separadas por ponto.}
+\keywords{Keyword 1. Keyword 2. Keyword 3.}
+
+%----------------------------------------------------------------------
+% Load Symbol and Acronyms definitions
+\input{chap/definitions} % package glossaries is used to creat list of symbols and list of acronyms
+
+
+%----------------------------------------------------------------------
+% Início do documento                                
+\begin{document}
+
+%--------------------------------------------------------
+\frontmatter
+% Elementos pré-textuais
+\folhaderosto[] %[pre/Ficha_Catalografica.pdf]
+\folhadeaprovacao{}{} %{pre/signature_page_color.pdf}{}
+\paginadedicatoria
+\paginaagradecimento
+\paginaepigrafe
+\paginaresumo
+\paginaabstract
+%---
+\listadefiguras % as listas dependem da necessidade do usuário
+\listadetabelas 
+\listadeabreviaturas
+\listadesimbolos
+\sumario
+%--------------------------------------------------------
+\mainmatter
+% Elementos textuais
+\input{chap/introduction}%
+
+%--------------------------------------------------------
+% Referências
+\bibliographystyle{lib/abntex2-num}
+\bibliography{ref-robust-opt}
+%--------------------------------------------------------
+% Elementos pós-textuais
+\backmatter
+\begin{appendices}
+%%Appendices
+\input{chap/appendix-A}
+%%Annexes
+% \input{chap/annex-A}
+\end{appendices}
+\end{document}
