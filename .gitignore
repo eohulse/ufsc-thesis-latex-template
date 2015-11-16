@@ -35,4 +35,5 @@
 *.backup
 *.slg
 *.sls
+*~
 /.gitignore
