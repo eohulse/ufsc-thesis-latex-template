@@ -32,4 +32,8 @@
 *.tdo
 *.fls
 *.slo
+*.backup
+*.slg
+*.sls
+*~
 /.gitignore

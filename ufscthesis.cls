@@ -29,6 +29,14 @@
 \newcommand{\idiomaprincipal}{brazil}
 \DeclareOption{brazil}{\renewcommand{\idiomaprincipal}{brazil}}
 \DeclareOption{english}{\renewcommand{\idiomaprincipal}{english}}
+\providecommand{\setmainlanguage}{
+\ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
+    \selectlanguage{brazil}
+}{}
+\ifthenelse{\equal{\idiomaprincipal}{english}}{%
+    \selectlanguage{english}
+}{}
+}
 % Set if .pdf will be a hard copy or a softcopy
 \providecommand{\linkcolorone}{Black}
 \providecommand{\linkcolortwo}{Black}
@@ -68,7 +76,8 @@
 \RequirePackage{pdfpages} % insert pdf pages in the document (used to insert the 'ficha catalográfica' page (http://portal.bu.ufsc.br/ficha/)
 \RequirePackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} %provides a nicer look for textual elements.
 \microtypecontext{spacing=nonfrench}
-
+\RequirePackage[figure,table]{totalcount} %provides the countnumber of figures and tables (used to decide whether to print list of figures and tables)
+\RequirePackage{etoolbox}
 %--------------------------------------------------------------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Setting up the memoir class to match BU guidelines
@@ -609,6 +618,7 @@
 
 \newcommand{\capa}%
 {%
+\setmainlanguage
 \setcounter{page}{-1}	% Caso o documento tenha capa redefine contagem incial para -1 (capa anverso -1, capa verso 0)
 \thispagestyle{empty} 	% Define o estilo desta página como vazio
 %
@@ -658,6 +668,7 @@
 \vspace{2cm}
 \newpage
 \NewPage
+\setmainlanguage
 } %end of cover
 
 \AtBeginDocument{%
@@ -673,6 +684,7 @@
 
 \newcommand{\folhaderosto}[1][semficha]%
 {%
+\setmainlanguage
 \if@openright\cleardoublepage\else\clearpage\fi%
 \thispagestyle{empty} % Define o estilo desta página como vazio
 \begin{center}
@@ -765,6 +777,7 @@
 
 \newcommand{\folhadeaprovacao}[2]
 {%
+\setmainlanguage
 \if@openright\cleardoublepage\else\clearpage\fi%
 \thispagestyle{empty}%
 
@@ -869,7 +882,7 @@
  	\end{center}
      \end{SingleSpace}
      }   
-     
+    
     }
 \vfill
 % Cria uma nova página de assinaturas
@@ -979,6 +992,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\paginadedicatoria}%
 {%
+\ifnotempty{\dedicatoriadata}{%
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -999,6 +1014,7 @@
 \mbox{}
 \newpage
 \NewPage
+} % end of \ifnotempty
 }% end of \dedicatoria
 
 %--------------------------------------------------------------------------
@@ -1010,6 +1026,8 @@
 
 \newcommand{\paginaagradecimento}%
 {%
+\ifnotempty{\agradecimentodata}{%
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1028,6 +1046,7 @@
     }
 \newpage
 \NewPage
+}% end of \ifnotempty
 }% end of \agradecimento
 
 %---------------------------------------------------------------------------
@@ -1039,6 +1058,8 @@
 
 \newcommand{\paginaepigrafe}%
 {%
+\ifnotempty{\epigrafedata}{%
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1067,6 +1088,7 @@
 \newpage
 % \cleardoublepage
 % \NewPage
+}% end of \ifnotempty
 }% end of \epigrafe
 
 %--------------------------------------------------------------------------
@@ -1078,6 +1100,7 @@
 
 \newcommand{\paginaresumo}%
 {%
+\ifnotempty{\textoresumodata}{%
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1101,20 +1124,15 @@
 }
 \newpage
 \NewPage
-\ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
-    \selectlanguage{brazil}
-}{}
-\ifthenelse{\equal{\idiomaprincipal}{english}}{%
-    \selectlanguage{english}
-}{}
 
-% Xunxo pra fazer isso funcionar por conta da mudança da lingua
+% Xunxo pra fazer isso funcionar por conta da possivel mudança da lingua
 \ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
     \renewcommand{\bibname}{Referências}
 }{}
 \ifthenelse{\equal{\idiomaprincipal}{english}}{%
     \renewcommand{\bibname}{References}
 }{}
+}% end of \ifnotempty
 }% end of \resumo
 
 %--------------------------------------------------------------------------
@@ -1126,6 +1144,7 @@
 
 \newcommand{\paginaabstract}%
 {%
+\ifnotempty{\textabstractdata}{%
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1149,12 +1168,6 @@
 }
 \newpage
 \NewPage
-\ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
-    \selectlanguage{brazil}
-}{}
-\ifthenelse{\equal{\idiomaprincipal}{english}}{%
-    \selectlanguage{english}
-}{}
 
 % Xunxo pra fazer isso funcionar por conta da mudança da lingua
 \ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
@@ -1163,6 +1176,7 @@
 \ifthenelse{\equal{\idiomaprincipal}{english}}{%
     \renewcommand{\bibname}{References}
 }{}
+}% end \ifnotempty
 }% end of \abstract
 
 %--------------------------------------------------------------------------
@@ -1173,6 +1187,8 @@
 %List of Figures
 \newcommand{\listadefiguras}%
 {%
+\iftotalfigures
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1184,11 +1200,14 @@
 \listoffigures*
 \clearpage
 \microtypesetup{protrusion=true}
+\fi % end of iftotalfigures
 }%
 %--------------------------------------------------------------------------
 %List of Tables
 \newcommand{\listadetabelas}%
 {%
+\iftotaltables
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1200,11 +1219,14 @@
 \listoftables*
 \clearpage
 \microtypesetup{protrusion=true}
+\fi % end of \iftotaltables
 }%
 %--------------------------------------------------------------------------
 %List of Abbreviations and Acronyms
 \newcommand{\listadeabreviaturas}%
 {%
+\ifdefempty{\printacronyms}{%
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1217,10 +1239,14 @@
 \clearpage
 \microtypesetup{protrusion=true}
 }%
+{}% end of \ifdefempty
+}%
 %--------------------------------------------------------------------------
 %List of Symbols
 \newcommand{\listadesimbolos}%
 {%
+\ifdefempty{\printsymbols}{%
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1233,10 +1259,13 @@
 \clearpage
 \microtypesetup{protrusion=true}
 }%
+{}% end of \ifdefempty
+}%
 %--------------------------------------------------------------------------
 %List of Contents
 \newcommand{\sumario}%
 {%
+\setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
