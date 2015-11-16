@@ -51,7 +51,10 @@
 \renewcommand{\linkcolortwo}{Cyan}
 \renewcommand{\imprimecapa}{sim}
 }%
-
+\providecommand{\printthis}{1}
+\DeclareOption{nofrontmatter}{%
+\renewcommand{\printthis}{}
+}%
 
 %---------------------------------------------------------------------------
 \AtBeginDocument{\pagestyle{empty}}
@@ -619,6 +622,7 @@
 \newcommand{\capa}%
 {%
 \setmainlanguage
+\ifnotempty{\printthis}{%
 \setcounter{page}{-1}	% Caso o documento tenha capa redefine contagem incial para -1 (capa anverso -1, capa verso 0)
 \thispagestyle{empty} 	% Define o estilo desta página como vazio
 %
@@ -669,6 +673,7 @@
 \newpage
 \NewPage
 \setmainlanguage
+}% end of \ifnotempty{\printthis}
 } %end of cover
 
 \AtBeginDocument{%
@@ -685,6 +690,7 @@
 \newcommand{\folhaderosto}[1][semficha]%
 {%
 \setmainlanguage
+\ifnotempty{\printthis}{%
 \if@openright\cleardoublepage\else\clearpage\fi%
 \thispagestyle{empty} % Define o estilo desta página como vazio
 \begin{center}
@@ -741,6 +747,7 @@
 }
 % \newpage
 % \NewPage
+}% end of \ifnotempty{\printthis}
 } %end folhaderosto      
 
 %---------------------------------------------------------------------------
@@ -778,6 +785,7 @@
 \newcommand{\folhadeaprovacao}[2]
 {%
 \setmainlanguage
+\ifnotempty{\printthis}{%
 \if@openright\cleardoublepage\else\clearpage\fi%
 \thispagestyle{empty}%
 
@@ -982,6 +990,7 @@
 \ifnotempty{#2}{%
 \includepdf[pages=1]{#2}}
 }
+}% end of \ifnotempty{\printthis}
 } %end folhadeaprovacao   
 
 %---------------------------------------------------------------------------
@@ -992,6 +1001,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\paginadedicatoria}%
 {%
+\ifnotempty{\printthis}{%
 \ifnotempty{\dedicatoriadata}{%
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1015,6 +1025,7 @@
 \newpage
 \NewPage
 } % end of \ifnotempty
+}% end of \ifnotempty{\printthis}
 }% end of \dedicatoria
 
 %--------------------------------------------------------------------------
@@ -1026,6 +1037,7 @@
 
 \newcommand{\paginaagradecimento}%
 {%
+\ifnotempty{\printthis}{%
 \ifnotempty{\agradecimentodata}{%
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1047,6 +1059,7 @@
 \newpage
 \NewPage
 }% end of \ifnotempty
+}% end of \ifnotempty{\printthis}
 }% end of \agradecimento
 
 %---------------------------------------------------------------------------
@@ -1058,6 +1071,7 @@
 
 \newcommand{\paginaepigrafe}%
 {%
+\ifnotempty{\printthis}{%
 \ifnotempty{\epigrafedata}{%
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1089,6 +1103,7 @@
 % \cleardoublepage
 % \NewPage
 }% end of \ifnotempty
+}% end of \ifnotempty{\printthis}
 }% end of \epigrafe
 
 %--------------------------------------------------------------------------
@@ -1100,6 +1115,7 @@
 
 \newcommand{\paginaresumo}%
 {%
+\ifnotempty{\printthis}{%
 \ifnotempty{\textoresumodata}{%
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
@@ -1133,6 +1149,7 @@
     \renewcommand{\bibname}{References}
 }{}
 }% end of \ifnotempty
+}% end of \ifnotempty{\printthis}
 }% end of \resumo
 
 %--------------------------------------------------------------------------
@@ -1144,6 +1161,7 @@
 
 \newcommand{\paginaabstract}%
 {%
+\ifnotempty{\printthis}{%
 \ifnotempty{\textabstractdata}{%
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
@@ -1177,6 +1195,7 @@
     \renewcommand{\bibname}{References}
 }{}
 }% end \ifnotempty
+}% end of \ifnotempty{\printthis}
 }% end of \abstract
 
 %--------------------------------------------------------------------------
@@ -1187,6 +1206,7 @@
 %List of Figures
 \newcommand{\listadefiguras}%
 {%
+\ifnotempty{\printthis}{%
 \iftotalfigures
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1201,11 +1221,13 @@
 \clearpage
 \microtypesetup{protrusion=true}
 \fi % end of iftotalfigures
+}% end of \ifnotempty{\printthis}
 }%
 %--------------------------------------------------------------------------
 %List of Tables
 \newcommand{\listadetabelas}%
 {%
+\ifnotempty{\printthis}{%
 \iftotaltables
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1220,11 +1242,13 @@
 \clearpage
 \microtypesetup{protrusion=true}
 \fi % end of \iftotaltables
+}% end of \ifnotempty{\printthis}
 }%
 %--------------------------------------------------------------------------
 %List of Abbreviations and Acronyms
 \newcommand{\listadeabreviaturas}%
 {%
+\ifnotempty{\printthis}{%
 \ifdefempty{\printacronyms}{%
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1240,11 +1264,13 @@
 \microtypesetup{protrusion=true}
 }%
 {}% end of \ifdefempty
+}% end of \ifnotempty{\printthis}
 }%
 %--------------------------------------------------------------------------
 %List of Symbols
 \newcommand{\listadesimbolos}%
 {%
+\ifnotempty{\printthis}{%
 \ifdefempty{\printsymbols}{%
 \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
@@ -1260,6 +1286,7 @@
 \microtypesetup{protrusion=true}
 }%
 {}% end of \ifdefempty
+}% end of \ifnotempty{\printthis}
 }%
 %--------------------------------------------------------------------------
 %List of Contents
