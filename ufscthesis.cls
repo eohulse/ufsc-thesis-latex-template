@@ -1346,6 +1346,7 @@
 %%% Formatação de capitulos
 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setsecnumdepth{subsubsection}
 \newlength{\linespace}
 \setlength{\linespace}{\baselineskip} % current equivalent of \onelineskip
 \newlength{\toptafiddle} \setlength{\toptafiddle}{2\linespace}
