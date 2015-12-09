@@ -1373,7 +1373,7 @@
 %% Definções do Estilo das seções e subseções
 \setsecheadstyle{\MakeUppercase} %\sffamily
 \setsubsecheadstyle{\bfseries\selectfont} %\sffamily
-\setsubsubsecheadstyle{\bfseries\selectfont} %\sffamily
+\setsubsubsecheadstyle{\selectfont} %\sffamily
 \renewcommand*{\cftchapterfont}{\bfseries\selectfont} %\sffamily
 
 %%%%%%%%%%%% Configura Cabeçalho
