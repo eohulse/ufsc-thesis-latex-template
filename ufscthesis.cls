@@ -211,10 +211,14 @@
 
 \AtBeginDocument{
   \ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
-      \renewcommand{\bibname}{Referências}
+      \addto\captionsbrazil{%
+	  \renewcommand{\bibname}{Referências}
+      }
   }{}
   \ifthenelse{\equal{\idiomaprincipal}{english}}{%
-      \renewcommand{\bibname}{References}
+      \addto\captionsenglish{%
+	  \renewcommand{\bibname}{References}
+      }
   }{}
 }
 
@@ -1141,13 +1145,6 @@
 \newpage
 \NewPage
 
-% Xunxo pra fazer isso funcionar por conta da possivel mudança da lingua
-\ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
-    \renewcommand{\bibname}{Referências}
-}{}
-\ifthenelse{\equal{\idiomaprincipal}{english}}{%
-    \renewcommand{\bibname}{References}
-}{}
 }% end of \ifnotempty
 }% end of \ifnotempty{\printthis}
 }% end of \resumo
@@ -1187,13 +1184,6 @@
 \newpage
 \NewPage
 
-% Xunxo pra fazer isso funcionar por conta da mudança da lingua
-\ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
-    \renewcommand{\bibname}{Referências}
-}{}
-\ifthenelse{\equal{\idiomaprincipal}{english}}{%
-    \renewcommand{\bibname}{References}
-}{}
 }% end \ifnotempty
 }% end of \ifnotempty{\printthis}
 }% end of \abstract
