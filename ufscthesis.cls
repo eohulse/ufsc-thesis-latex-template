@@ -74,7 +74,7 @@
 \RequirePackage{mmap} % allows copying correctly pdf text with split words ([noTeX] option for Unicode)
 \RequirePackage[utf8]{inputenc} % informing that text codification is in utf8 (allows direct accentuation)
 \RequirePackage[T1]{fontenc} % allows copying correctly pdf text with accentuation, accented characters can be automatically hyphenated.
-\RequirePackage[english,brazil]{babel} % set document language (last language enter in the option box is the main language of the document.)
+\RequirePackage[english,brazil,main=\idiomaprincipal]{babel} % set document language (last language enter in the option box is the main language of the document.)
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor} % Specify colors by their 'svgnames', for a full list of all colors available see here: http://www.latextemplates.com/svgnames-colors
 \RequirePackage{pdfpages} % insert pdf pages in the document (used to insert the 'ficha catalográfica' page (http://portal.bu.ufsc.br/ficha/)
 \RequirePackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype} %provides a nicer look for textual elements.
@@ -158,18 +158,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Glossaries Package setup
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\AtEndOfClass{%
+\RequirePackage{ifmtarg}% for \ifuseriempty definition
 % Next three commands are used to silence memoir conflicts with glossaries package
 \RequirePackage{silence}
 \WarningFilter{glossaries}{Overriding \printglossary}
 \WarningFilter{glossaries}{overriding `theglossary'}
+\AtEndOfClass{%
+
 % Uncomment this only if using abntex2cite package
 % \let\su@ExpandTwoArgs\relax
 % \let\IfSubStringInString\relax
 % \let\su@IfSubStringInString\relax 
 
-\RequirePackage[acronym,symbols,nomain,style=list]{glossaries}%nonumberlist
+\RequirePackage[acronym,symbols,nomain,style=list]{glossaries}%nonumberlist, indexonlyfirst
 \makeglossaries
+\newcommand*{\ifuseriempty}[3]{%
+  \protected@edef\tmp{\glsentryuseri{#1}}%
+  \expandafter\@ifmtarg\expandafter{\tmp}{#2}{#3}%
+}
 \newcommand\Dotfill{\cftdotfill{\cftsectiondotsep}}
 \renewcommand*\glspostdescription{\Dotfill}%\nobreak
 \glsenablehyper
@@ -190,7 +196,8 @@
 {\end{longtable}}%
 \renewcommand*{\glossaryentryfield}[5]{%
 \glstarget{##1}{\textbf{##2}}% Name
- & $[$\glsentryuseri{##1}$]$% Units
+% & $[$\glsentryuseri{##1}$]$% Units
+ & \ifuseriempty{##1}{}{$[$\glsentryuseri{##1}$]$}% Units
  & ##3% Description
  & ##5% Page list
         \\% end of row
@@ -625,7 +632,7 @@
 
 \newcommand{\capa}%
 {%
-\setmainlanguage
+% \setmainlanguage
 \ifnotempty{\printthis}{%
 \setcounter{page}{-1}	% Caso o documento tenha capa redefine contagem incial para -1 (capa anverso -1, capa verso 0)
 \thispagestyle{empty} 	% Define o estilo desta página como vazio
@@ -676,7 +683,7 @@
 \vspace{2cm}
 \newpage
 \NewPage
-\setmainlanguage
+% \setmainlanguage
 }% end of \ifnotempty{\printthis}
 } %end of cover
 
@@ -693,7 +700,7 @@
 
 \newcommand{\folhaderosto}[1][semficha]%
 {%
-\setmainlanguage
+% \setmainlanguage
 \ifnotempty{\printthis}{%
 \if@openright\cleardoublepage\else\clearpage\fi%
 \thispagestyle{empty} % Define o estilo desta página como vazio
@@ -788,7 +795,7 @@
 
 \newcommand{\folhadeaprovacao}[2]
 {%
-\setmainlanguage
+% \setmainlanguage
 \ifnotempty{\printthis}{%
 \if@openright\cleardoublepage\else\clearpage\fi%
 \thispagestyle{empty}%
@@ -1007,7 +1014,7 @@
 {%
 \ifnotempty{\printthis}{%
 \ifnotempty{\dedicatoriadata}{%
-\setmainlanguage
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1043,7 +1050,7 @@
 {%
 \ifnotempty{\printthis}{%
 \ifnotempty{\agradecimentodata}{%
-\setmainlanguage
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1077,7 +1084,7 @@
 {%
 \ifnotempty{\printthis}{%
 \ifnotempty{\epigrafedata}{%
-\setmainlanguage
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1144,7 +1151,7 @@
 }
 \newpage
 \NewPage
-
+\setmainlanguage
 }% end of \ifnotempty
 }% end of \ifnotempty{\printthis}
 }% end of \resumo
@@ -1183,7 +1190,7 @@
 }
 \newpage
 \NewPage
-
+\setmainlanguage
 }% end \ifnotempty
 }% end of \ifnotempty{\printthis}
 }% end of \abstract
@@ -1198,7 +1205,7 @@
 {%
 \ifnotempty{\printthis}{%
 \iftotalfigures
-\setmainlanguage
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1219,7 +1226,7 @@
 {%
 \ifnotempty{\printthis}{%
 \iftotaltables
-\setmainlanguage
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1239,8 +1246,8 @@
 \newcommand{\listadeabreviaturas}%
 {%
 \ifnotempty{\printthis}{%
-\ifdefempty{\printacronyms}{%
-\setmainlanguage
+% \ifdefempty{\printacronyms}{%
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1252,8 +1259,8 @@
 \printacronyms
 \clearpage
 \microtypesetup{protrusion=true}
-}%
-{}% end of \ifdefempty
+% }%
+% {}% end of \ifdefempty
 }% end of \ifnotempty{\printthis}
 }%
 %--------------------------------------------------------------------------
@@ -1261,28 +1268,28 @@
 \newcommand{\listadesimbolos}%
 {%
 \ifnotempty{\printthis}{%
-\ifdefempty{\printsymbols}{%
-\setmainlanguage
+% \ifdefempty{\printsymbols}{%
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
     \clearpage
 \fi
-\thispagestyle{empty} 	% Define o estilo desta página como vazio
+\thispagestyle{empty} % Define o estilo desta página como vazio
 \microtypesetup{protrusion=false}
 \pdfbookmark{\glssymbolsgroupname}{chap:ListOfSymbols}
 \printsymbols[style=tabx4col]
 \clearpage
 \microtypesetup{protrusion=true}
-}%
-{}% end of \ifdefempty
+% }%
+% {}% end of \ifdefempty
 }% end of \ifnotempty{\printthis}
 }%
 %--------------------------------------------------------------------------
 %List of Contents
 \newcommand{\sumario}%
 {%
-\setmainlanguage
+% \setmainlanguage
 \if@openright		% Garante que se a página for "direita"
     \cleardoublepage	% ele pula uma página para deixar o anverso em branco
 \else
@@ -1393,7 +1400,6 @@
 \chapterstyle{asu}
 
 %%%%%%%%%%% Re-define frontmatter and mainmatter %%%%%%%%%%
-\RequirePackage{etoolbox}
 \makeatletter
 \aliaspagestyle{title}{empty} % suppress the page number after \maketitle
 \let\origps@chapter\ps@chapter
