@@ -531,19 +531,14 @@
 \providecommand{\textoresumodata}{}
 \newcommand{\textoresumo}[1]{\renewcommand{\textoresumodata}{#1}}
 \newcommand{\resumoname}{Resumo}
-
-\AtBeginDocument{
-  \ifthenelse{\equal{\idiomaprincipal}{brazil}}{%
-    \renewcommand{\resumoname}{Resumo}%
-  }{}
-  \ifthenelse{\equal{\idiomaprincipal}{english}}{%
-    \renewcommand{\resumoname}{Resumo Estendido} %
-  }{}
-}
-
 \providecommand{\palavraschavedata}{}
 \newcommand{\palavraschave}[1]{\renewcommand{\palavraschavedata}{#1}}
 
+%---------------------------------------------------------------------------
+% Resumo Estendido
+\providecommand{\textoresumoexpandidodata}{}
+\newcommand{\textoresumoexpandido}[1]{\renewcommand{\textoresumoexpandidodata}{#1}}
+\newcommand{\resumoexpandidoname}{Resumo Expandido}
 
 %---------------------------------------------------------------------------
 % Abstract
@@ -1154,6 +1149,48 @@
 \setmainlanguage
 }% end of \ifnotempty
 }% end of \ifnotempty{\printthis}
+}% end of \resumo
+
+%--------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Resumo Expandido
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tituloresumoexpandido}[1]{{\textbf{#1} \vspace{-1.0em} \par}}
+
+\newcommand{\paginaresumoexpandido}{%
+\ifthenelse{\equal{\idiomaprincipal}{english}}{%
+	\ifnotempty{\printthis}{%
+		\ifnotempty{\textoresumoexpandidodata}{%
+			\if@openright		% Garante que se a página for "direita"
+				\cleardoublepage	% ele pula uma página para deixar o anverso em branco
+			\else
+				\clearpage
+			\fi
+			\selectlanguage{brazil}
+			\thispagestyle{empty} 	% Define o estilo desta página como vazio
+			\ifnotempty{\textoresumoexpandidodata}{%
+					\chapter*{\resumoexpandidoname}
+					\pdfbookmark{Resumo Expandido}{cap:resumo-expandido}
+					\vspace{.2cm}
+					\begin{SingleSpace}
+					{\setlength{\parindent}{0pt}
+						\setlength{\parskip}{1.0em}
+						\textoresumoexpandidodata
+					}
+					\end{SingleSpace}
+				}
+			\vspace{2 em}
+			\ifnotempty{\palavraschavedata}{\par\setlength{\parindent}{0cm}{\bfseries Palavras-chave:} \palavraschavedata
+			\setlength{\parindent}{1cm}
+			\setlength{\parskip}{0cm}
+			}
+			\newpage
+			\NewPage
+			}% end of \ifnotempty
+		}% end of \ifnotempty{\printthis}
+	}{}
 }% end of \resumo
 
 %--------------------------------------------------------------------------
