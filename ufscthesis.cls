@@ -273,6 +273,15 @@
 \newcommand{\instituicaoformat}[1]{\bfseries\MakeUppercase{#1}}
 
 %---------------------------------------------------------------------------
+% Centro
+\providecommand{\centrodata}{Centro Tecnológico}
+\providecommand{\centrogenerodata}{o}
+\newcommand{\centro}[2][o]%
+    {\renewcommand{\centrodata}{#2}\renewcommand{\centrogenerodata}{#1}}
+
+\newcommand{\centroformat}[1]{\bfseries\MakeUppercase{#1}}
+
+%---------------------------------------------------------------------------
 % Departamento
 \providecommand{\departamentodata}{Departamento de Automação e Sistemas}
 \providecommand{\departamentogenerodata}{o}
@@ -693,67 +702,62 @@
 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\folhaderosto}[1][semficha]%
-{%
-% \setmainlanguage
-\ifnotempty{\printthis}{%
-\if@openright\cleardoublepage\else\clearpage\fi%
-\thispagestyle{empty} % Define o estilo desta página como vazio
-\begin{center}
-    \ifnotempty{\autordata}%
-	{%
-	\autorformat\autordata
-	}
-\end{center}
-\vspace{1.5cm}
-\begin{center}
-    \begin{SingleSpace}
-    \ifnotempty{\titulodata}%
-	{%
-	\ifnotemptyelse{\subtitulodata}%
-	    {%
-	    \tituloformat{\titulodata}:\\ \tituloformat{\subtitulodata}\par
-	    }%
-	    {%
-	    \tituloformat{\titulodata}\par
-	    }%
-	}%
-    \end{SingleSpace}
-\end{center}
-\vfill
-\begin{textodafolhaderosto}
-    {\comentarioformat\comentariodata}\par
-\end{textodafolhaderosto}
-\begin{flushright}
-    \normalsize
-    \ifnotempty{\orientadordata}%
-	{%
-	{\orientadordata}:\ {\orientadorname}\protect\\
-	}
-    \ifnotempty{\coorientadordata}
-	{%
-	{\coorientadordata}:\ {\coorientadorname}
-	}
-\end{flushright}
-% \end{textodafolhaderosto}
-\vfill\vfill
-\begin{center}
-    \begin{SingleSpace}
-    \setlength{\parskip}{.3cm}
-    \ifnotempty{\localdata}
-	{{\localformat\localdata}\par}
-    \ifnotempty{\anodata}
-	{\dataformat{\anodata}}
-    \end{SingleSpace}
-\end{center}
-\vspace{2cm}
-\ifnotempty{#1}{
-% \newpage
-\includepdf[pages=1]{#1}
-}
-% \newpage
-% \NewPage
-}% end of \ifnotempty{\printthis}
+\newcommand{\folhaderosto}{%
+	% \setmainlanguage
+	\ifnotempty{\printthis}{%
+	\if@openright\cleardoublepage\else\clearpage\fi%
+	\thispagestyle{empty} % Define o estilo desta página como vazio
+	\begin{center}
+		\ifnotempty{\autordata}%
+		{%
+		\autorformat\autordata
+		}
+	\end{center}
+	\vspace{1.5cm}
+	\begin{center}
+		\begin{SingleSpace}
+		\ifnotempty{\titulodata}%
+		{%
+		\ifnotemptyelse{\subtitulodata}%
+			{%
+			\tituloformat{\titulodata}:\\ \tituloformat{\subtitulodata}\par
+			}%
+			{%
+			\tituloformat{\titulodata}\par
+			}%
+		}%
+		\end{SingleSpace}
+	\end{center}
+	\vfill
+	\begin{textodafolhaderosto}
+		{\comentarioformat\comentariodata}\par
+	\end{textodafolhaderosto}
+	\begin{flushright}
+		\normalsize
+		\ifnotempty{\orientadordata}%
+		{%
+		{\orientadordata}:\ {\orientadorname}\protect\\
+		}
+		\ifnotempty{\coorientadordata}
+		{%
+		{\coorientadordata}:\ {\coorientadorname}
+		}
+	\end{flushright}
+	% \end{textodafolhaderosto}
+	\vfill\vfill
+	\begin{center}
+		\begin{SingleSpace}
+		\setlength{\parskip}{.3cm}
+		\ifnotempty{\localdata}
+		{{\localformat\localdata}\par}
+		\ifnotempty{\anodata}
+		{\dataformat{\anodata}}
+		\end{SingleSpace}
+	\end{center}
+	\vspace{2cm}
+	% \newpage
+	% \NewPage
+	}% end of \ifnotempty{\printthis}
 } %end folhaderosto      
 
 %---------------------------------------------------------------------------
@@ -764,6 +768,46 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Maiores informações em:
 % http://portalbu.ufsc.br/ficha
+
+\newcommand{\fichacatalografica}[1][]{%
+	% TODO: Separa sobrenome e nome do autor
+	% TODO: Separar as keyworks e colocar no final
+	% TODO: Counter para keywords e counter para palavras depois de keywords (orientado, coorientador, instituicao, titulo)
+	\ifnotempty{\printthis}{%
+		\clearpage
+		\ifthenelse{\equal{#1}{}}{%
+		%	
+			\vspace*{\fill}
+				\noindent\begin{center}
+				Ficha de identifica\c{c}\~{a}o da obra elaborada pelo autor, \\%
+				atrav\'{e}s do \LaTeX\, utilizando a classe ufsc-thesis.%
+			\end{center}
+			\setlength{\fboxsep}{12pt}
+			\noindent\fbox{\begin{minipage}[c]{9.5cm}
+			{ \footnotesize \ttfamily	
+				\autordata \\ 
+				\hspace*{2em} \titulodata \, / \autordata ; orientador, \orientadorname, \anodata \\
+				\pageref{LastPage} p. 
+				%
+				\vspace{1.2em} \\
+				%
+				\hspace*{2em} \documentodata \, (\graudata)  - \instituicaodata, \centrodata, \programadata, \localdata, \anodata. 
+				%
+				\vspace{0.6em}\\
+				\hspace*{2em} Inclui referências. 
+				\vspace{0.6em}\\	
+				\hspace*{2em} \keywordsdata. I. \orientadorname, II. \coorientadorname, III. \instituicaodata. \programadata IV. Título. \\
+				\vspace{0.6em}\\ 
+			}\end{minipage}}
+			\vspace{3.5cm}
+		}{
+			\includepdf[pages=1]{#1}
+		}
+		% \newpage
+		% \NewPage
+	}% end of \ifnotempty{\printthis}
+} %end folhaderosto      
+
 
 %---------------------------------------------------------------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
